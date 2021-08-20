@@ -15,10 +15,10 @@
     <input type="text" name=" " id="Max_height" value="48">
     <br><br>
     <label>sticker width: </label>
-    <input type="text" name="" id="sticker_width" value="0">
+    <input type="text" name="" id="sticker_width" value="0" onchange="if (document.getElementById('sticker_width').value<=1) {alert('value must be atleast 1.5'); document.getElementById('sticker_width').value=1.5;}">
     &nbsp;&nbsp;&nbsp;
     <label>sticker height: </label>
-    <input type="text" name="" id="sticker_height" value="0">
+    <input type="text" name="" id="sticker_height" value="0" onchange="if (document.getElementById('sticker_height').value<=1) {alert('value must be atleast 1.5'); document.getElementById('sticker_height').value=1.5;}">
     <button type="button" class="btn btn-dark" onclick="calc()">Dark</button>
     <br><br> <input type="text" name="" id="total">
     <br><Br>
@@ -56,11 +56,17 @@ function calc() {
     sticker_height = parseFloat(document.getElementById('sticker_height').value, 10);
     sticker_width = parseFloat(document.getElementById('sticker_width').value, 10);
 
-    
-    console.log(Max_width / sticker_width);
+    row = Max_width / sticker_width;
+    row = parseInt(row);
+    column = Max_height / sticker_height;
+    column = parseInt(column);
+
+    console.log(row);
+    console.log(column);
 
     // Function call show possible max stickers
-    document.getElementById('total').value = No_of_rectangles(Max_width, Max_height, sticker_width, sticker_height);
+    ttl = row * column; //parseInt(No_of_rectangles(Max_width, Max_height, sticker_width, sticker_height), 10);
+    document.getElementById('total').value = ttl;
 
     //Drawing visualization on canvas
     var c = document.getElementById("myCanvas");
@@ -71,9 +77,8 @@ function calc() {
     stcker_canvas_w = sticker_width * 10;
     stcker_canvas_h = sticker_height * 10;
     //get possible rows and column
-row = Max_width / sticker_width;
-column = Max_height / sticker_height;
-var ctx = c.getContext("2d");
+
+    var ctx = c.getContext("2d");
     ctx.beginPath();
     ctx.strokeStyle = "blue";
     for (j = 0; j < column; j++) {
