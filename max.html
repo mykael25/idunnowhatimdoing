@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+</body>
+<center>
+    <label>canvas width: 2ft. (24")</label>
+    <input type="text" name="" id="Max_width" value="24">
+    &nbsp;&nbsp;&nbsp;
+    <label>canvas height: 2ft. (24")</label>
+    <input type="text" name=" " id="Max_height" value="48">
+    <br><br>
+    <label>sticker width: </label>
+    <input type="text" name="" id="sticker_width" value="0">
+    &nbsp;&nbsp;&nbsp;
+    <label>sticker height: </label>
+    <input type="text" name="" id="sticker_height" value="0">
+    <button type="button" class="btn btn-dark" onclick="calc()">Dark</button>
+    <br><br> <input type="text" name="" id="total">
+    <br><Br>
+    <canvas id="myCanvas" width="240" height="480" style="border:1px solid red; aspect-ratio: auto 400 / 400;">
+</center>
+
+</html>
+<script>
+// Function to count smaller rectangles
+// within the larger rectangle
+function No_of_rectangles(Max_width, Max_height, sticker_width, sticker_height) {
+    // If the dimension of the smaller
+    // rectangle is greater than the
+    // bigger one
+
+    if ((sticker_width > Max_width) || (sticker_height > Max_height)) {
+        return alert("size too large for the canvas");
+    } else {
+
+        // Return the number of smaller
+        // rectangles possible
+        return (Max_width / sticker_width) * (Max_height / sticker_height);
+    }
+}
+
+
+function calc() {
+    // Dimension of bigger rectangle
+    Max_width = parseFloat(document.getElementById('Max_width').value, 10);
+    Max_height = parseFloat(document.getElementById('Max_height').value, 10);
+
+
+
+    // Dimension of smaller rectangle
+    sticker_height = parseFloat(document.getElementById('sticker_height').value, 10);
+    sticker_width = parseFloat(document.getElementById('sticker_width').value, 10);
+
+    
+    console.log(Max_width / sticker_width);
+
+    // Function call show possible max stickers
+    document.getElementById('total').value = No_of_rectangles(Max_width, Max_height, sticker_width, sticker_height);
+
+    //Drawing visualization on canvas
+    var c = document.getElementById("myCanvas");
+    //set the canvas size
+    c.width = Max_width * 10;
+    c.height = Max_height * 10;
+    //set the sticker size
+    stcker_canvas_w = sticker_width * 10;
+    stcker_canvas_h = sticker_height * 10;
+    //get possible rows and column
+row = Max_width / sticker_width;
+column = Max_height / sticker_height;
+var ctx = c.getContext("2d");
+    ctx.beginPath();
+    ctx.strokeStyle = "blue";
+    for (j = 0; j < column; j++) {
+        for (i = 0; i < row; i++) {
+
+            ctx.rect(i * stcker_canvas_w, j * stcker_canvas_h, stcker_canvas_w, stcker_canvas_h);
+            //console.log(i);
+        }
+    }
+    ctx.stroke();
+}
+</script>
